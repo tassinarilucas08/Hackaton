@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CinesiaCare - Reabilitação Funcional</title>
+  <link rel="stylesheet" href="../static/css/styles.css">
+</head>
+<body>
+
+  <!-- CABEÇALHO -->
+  <header>
+    <div class="brand">
+      <div class="brand-icon">C</div>
+      <div>
+        <h1>Cinesia<span>Care</span></h1>
+        <small class="brand-subtitle">Reabilitação e Telemonitoramento Funcional</small>
+      </div>
+    </div>
+
+    <nav class="tabs-nav">
+      <button class="tab-btn active" data-tab="paciente">Visão do Paciente</button>
+      <button class="tab-btn" data-tab="fisioterapeuta">Portal do Fisioterapeuta / UBS</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ABA 1: VISÃO DO PACIENTE -->
+    <section id="tab-paciente" class="tab-content active">
+      <div class="patient-grid">
+        
+        <!-- Feed de Vídeo -->
+        <div class="card card-video">
+          <div class="feed-container">
+            <img id="videoFeed" class="video-element" src="{{ url_for('video_feed') }}" alt="Transmissão MediaPipe" onerror="this.onerror=null; this.src='https://placehold.co/640x480/0f172a/94a3b8?text=Aguardando+Stream+Flask';">
+            
+            <div class="badge-status">
+              <div id="statusDot" class="status-dot"></div>
+              <span id="sessionStatus">Conectando ao sistema...</span>
+            </div>
+          </div>
+
+          <div class="guide-box">
+            <strong>Instrução:</strong> Posicione a cadeira de perfil para a câmera a cerca de 2 metros de distância. Mantenha os braços cruzados sobre o peito ao realizar o teste.
+          </div>
+        </div>
+
+        <!-- Painel Lateral de Métricas -->
+        <div class="metrics-col">
+          <div class="metric-hero">
+            <div class="metric-hero-label">Repetições Válidas</div>
+            <div id="repsCounter" class="metric-hero-value">0</div>
+            <div id="exerciseStage" class="stage-tag">Posição: Sentado</div>
+          </div>
+
+          <!-- Gauge Angular Nativo -->
+          <div class="gauge-wrapper">
+            <span class="gauge-label">Ângulo Articular do Joelho</span>
+            <canvas id="gaugeCanvas" width="220" height="120"></canvas>
+            <div id="angleDisplay" class="angle-val">0°</div>
+          </div>
+
+          <!-- Feedback Postural -->
+          <div id="postureAlert" class="posture-banner">
+            <span id="postureIcon">✓</span>
+            <span id="postureText">Coluna alinhada corretamente</span>
+          </div>
+
+          <!-- Ações de Sessão -->
+          <div class="action-group">
+            <button id="btnReiniciar" class="btn btn-secondary">
+              Reiniciar
+            </button>
+            <button id="btnFinalizar" class="btn btn-success">
+              Finalizar Sessão
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ABA 2: PORTAL DO FISIOTERAPEUTA -->
+    <section id="tab-fisioterapeuta" class="tab-content">
+      <div class="clinical-header">
+        <div>
+          <h2>Prontuário Funcional e Monitoramento</h2>
+          <p class="subtitle">Acompanhamento longitudinal de estabilidade e mobilidade na Atenção Primária.</p>
+        </div>
+        <button id="btnAtualizarHistorico" class="btn btn-primary">Atualizar Prontuário</button>
+      </div>
+
+      <!-- Métricas Gerais -->
+      <div class="stats-cards">
+        <div class="stat-card">
+          <div class="stat-card-title">Total de Treinos</div>
+          <div id="statTotalSessoes" class="stat-card-val">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Média de Repetições</div>
+          <div id="statMediaReps" class="stat-card-val">0.0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Compensações Posturais Totais</div>
+          <div id="statTotalCompensacoes" class="stat-card-val">0</div>
+        </div>
+      </div>
+
+      <!-- Gráfico Longitudinal Nativo -->
+      <div class="chart-container">
+        <h3 class="chart-title">Evolução do Desempenho (Repetições por Sessão)</h3>
+        <canvas id="clinicalChart" width="800" height="260"></canvas>
+      </div>
+
+      <!-- Tabela de Sessões -->
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Data/Hora</th>
+              <th>Paciente</th>
+              <th>Exercício</th>
+              <th>Repetições</th>
+              <th>Desvios Posturais</th>
+              <th>Classificação de Risco</th>
+            </tr>
+          </thead>
+          <tbody id="historyTableBody">
+            <tr>
+              <td colspan="7" class="text-center">Carregando histórico clínico...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- SCRIPTS MODULARES -->
+  <script src="{{ url_for('static', filename='js/api_client.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/audio_service.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/canvas_renderer.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

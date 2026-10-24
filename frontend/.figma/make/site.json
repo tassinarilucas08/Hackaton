@@ -1,0 +1,10 @@
+{
+  "description": "Plataforma de reabilitação motora que conecta fisioterapeutas e pacientes para prescrever exercícios, acompanhar movimentos e monitorar o progresso à distância.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

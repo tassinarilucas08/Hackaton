@@ -2,7 +2,7 @@ from datetime import datetime
 import string
 import random
 from werkzeug.security import generate_password_hash, check_password_hash
-from backend.database.config import db
+from database.config import db
 
 def gerar_codigo_acesso(tamanho=6):
     caracteres = string.ascii_uppercase + string.digits

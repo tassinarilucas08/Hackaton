@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
-from backend.database.config import db
-from backend.database.repository import ClinicalRepository
+from database.config import db
+from database.repository import ClinicalRepository
 
 def create_app():
     app = Flask(__name__)

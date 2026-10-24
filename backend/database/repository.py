@@ -1,6 +1,6 @@
 from typing import Optional, List
-from backend.database.config import db
-from backend.database.models import Fisioterapeuta, Paciente, PlanoTreino, SessaoExecucao
+from database.config import db
+from database.models import Fisioterapeuta, Paciente, PlanoTreino, SessaoExecucao
 
 class ClinicalRepository:
     # --- Fisioterapeuta ---
